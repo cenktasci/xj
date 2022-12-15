@@ -3,17 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Game extends Model
+class BonusHunt extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
     public function provider()
     {
-        return $this->belongsTo(Provider::class);
+        return $this->hasMany(Provider::class);
+    }
+
+    public function game()
+    {
+        return $this->hasMany(Game::class);
     }
 
     protected static function boot()
@@ -21,10 +27,10 @@ class Game extends Model
         parent::boot();
 
         static::creating(function ($game) {
-            $game->slot_name_slug = Str::slug($game->slot_name);
+            $game->bonus_name_slug = Str::slug($game->bonus_name);
         });
         static::updating(function ($game) {
-            $game->slot_name_slug = Str::slug($game->slot_name);
+            $game->bonus_name_slug = Str::slug($game->bonus_name);
         });
     }
 }

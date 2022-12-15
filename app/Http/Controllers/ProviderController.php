@@ -15,12 +15,12 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        $provider =  file_get_contents('provider.json');
+        /*$provider =  file_get_contents('provider.json');
         $provider = json_decode($provider);
-        $provider = $provider->response;
+        $provider = $provider->response;*/
 
-        print_r($provider);
-
+        $provider = Provider::all();
+        return view('provider.index', compact('provider'));
     }
 
     /**
@@ -41,7 +41,10 @@ class ProviderController extends Controller
      */
     public function store(StoreProviderRequest $request)
     {
-        dd($request->all());
+        $create =  Provider::create($request->all());
+        if ($create) {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -52,7 +55,7 @@ class ProviderController extends Controller
      */
     public function show(Provider $provider)
     {
-        //
+        return Provider::FindorFail($provider->id);
     }
 
     /**
@@ -63,7 +66,8 @@ class ProviderController extends Controller
      */
     public function edit(Provider $provider)
     {
-        //
+        $provider = Provider::FindorFail($provider->id);
+        return view('provider.edit', compact('provider'));
     }
 
     /**
@@ -75,7 +79,12 @@ class ProviderController extends Controller
      */
     public function update(UpdateProviderRequest $request, Provider $provider)
     {
-        //
+        $provider = Provider::find($provider->id);
+        if ($provider === null) {
+            return "";
+        }
+        $provider->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -86,6 +95,10 @@ class ProviderController extends Controller
      */
     public function destroy(Provider $provider)
     {
-        //
+        $provider = Provider::FindorFail($provider->id);
+        if ($provider) {
+            $provider->destroy($provider->id);
+        }
+        return redirect()->route('provider.index');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Models\Provider;
 
 class GameController extends Controller
 {
@@ -15,7 +16,9 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        $game = Game::all();
+
+        return view('game.index', compact('game'));
     }
 
     /**
@@ -25,7 +28,8 @@ class GameController extends Controller
      */
     public function create()
     {
-        //
+        $provider = Provider::all();
+        return view('game.create', compact('provider'));
     }
 
     /**
@@ -36,7 +40,10 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request)
     {
-        //
+        $store = Game::create($request->all());
+        if ($store) {
+            return redirect()->route('game.create');
+        }
     }
 
     /**
@@ -47,7 +54,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        return Game::FindorFail($game->id);
     }
 
     /**
@@ -58,7 +65,10 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        //
+        $game = Game::FindorFail($game->id);
+        $provider = Provider::all();
+
+        return view('game.edit', compact('game', 'provider'));
     }
 
     /**
@@ -70,7 +80,14 @@ class GameController extends Controller
      */
     public function update(UpdateGameRequest $request, Game $game)
     {
-        //
+        $game = Game::FindorFail($game->id);
+        if ($game === null) {
+            return "";
+        }
+        $update = $game->update($request->all());
+        if ($update) {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -81,6 +98,10 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        //
+        $game = Game::FindorFail($game->id);
+        if ($game) {
+            $game->destroy($game->id);
+        }
+        return redirect()->route('game.index');
     }
 }

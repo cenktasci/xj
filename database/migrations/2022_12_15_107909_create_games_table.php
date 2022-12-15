@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('provider_id');   // saglayıcı
+            $table->unsignedBigInteger('provider_id');
             $table->string('slot_name')->unique();  // oyun adı
             $table->string('slot_name_slug');  // oyun adı
-            $table->string('slot_rtp');  // slot_rtp
-            $table->string('slot_volatility');  // slot_volatility
+            $table->string('slot_picture')->nullable();  // oyun adı
+            $table->string('slot_rtp')->nullable();  // slot_rtp
+            $table->string('slot_volatility')->nullable();  // slot_volatility
             $table->timestamps();
+            $table->foreign('provider_id')
+                ->references('id')
+                ->on('providers')
+                ->onDelete('cascade');
         });
     }
 
