@@ -1,0 +1,208 @@
+{
+    "response": [
+        {
+            "provider_name": "Pragmatic Play",
+            "provider_slug": "pragmatic-play",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2021/12/1640612561.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2021/12/1640612583.webp"
+        },
+        {
+            "provider_name": "Hacksaw Gaming",
+            "provider_slug": "hacksaw-gaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2021/12/1640618093.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2021/12/1640619056.webp"
+        },
+        {
+            "provider_name": "Popiplay",
+            "provider_slug": "popiplay",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/12/1670239921.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/12/1670239943.png"
+        },
+        {
+            "provider_name": "Play'n GO",
+            "provider_slug": "playn-go",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2021/12/1640601964.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2021/12/1640602031.webp"
+        },
+        {
+            "provider_name": "NoLimit City",
+            "provider_slug": "nolimit-city",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2021/12/1640096125.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2021/12/1640601582.webp"
+        },
+        {
+            "provider_name": "GameArt",
+            "provider_slug": "gameart",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2021/12/1640602286.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2021/12/1640602329.webp"
+        },
+        {
+            "provider_name": "Red Tiger",
+            "provider_slug": "red-tiger",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641283592.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641283625.webp"
+        },
+        {
+            "provider_name": "Push Gaming",
+            "provider_slug": "push-gaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641284490.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641284528.png"
+        },
+        {
+            "provider_name": "Gamomat",
+            "provider_slug": "gamomat",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641284791.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641284823.webp"
+        },
+        {
+            "provider_name": "NetEnt",
+            "provider_slug": "netent",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641285225.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641285252.webp"
+        },
+        {
+            "provider_name": "Quickspin",
+            "provider_slug": "quickspin",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641285912.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641285945.webp"
+        },
+        {
+            "provider_name": "Thunderkick",
+            "provider_slug": "thunderkick",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641286242.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641286270.webp"
+        },
+        {
+            "provider_name": "Evolution Gaming",
+            "provider_slug": "evolution-gaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641288275.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641288306.webp"
+        },
+        {
+            "provider_name": "BetSoft",
+            "provider_slug": "betsoft",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641296933.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641296959.png"
+        },
+        {
+            "provider_name": "BGaming",
+            "provider_slug": "bgaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641297575.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641297597.png"
+        },
+        {
+            "provider_name": "Blueprint Gaming",
+            "provider_slug": "blueprint-gaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641298230.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641298256.png"
+        },
+        {
+            "provider_name": "Big Time Gaming",
+            "provider_slug": "big-time-gaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641298799.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641298824.png"
+        },
+        {
+            "provider_name": "ELK Studios",
+            "provider_slug": "elk-studios",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641299565.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641299588.png"
+        },
+        {
+            "provider_name": "Endorphina",
+            "provider_slug": "endorphina",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641300077.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641300106.png"
+        },
+        {
+            "provider_name": "Relax Gaming",
+            "provider_slug": "relax-gaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641300622.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641300643.png"
+        },
+        {
+            "provider_name": "Yggdrasil",
+            "provider_slug": "yggdrasil",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641301287.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641301338.png"
+        },
+        {
+            "provider_name": "Microgaming",
+            "provider_slug": "microgaming",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641301923.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641301945.png"
+        },
+        {
+            "provider_name": "Wazdan",
+            "provider_slug": "wazdan",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641302957.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641303267.png"
+        },
+        {
+            "provider_name": "TrueLab",
+            "provider_slug": "truelab",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641303902.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641303921.png"
+        },
+        {
+            "provider_name": "Ezugi",
+            "provider_slug": "ezugi",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641304767.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641304787.png"
+        },
+        {
+            "provider_name": "Evoplay",
+            "provider_slug": "evoplay",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641308129.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641308150.png"
+        },
+        {
+            "provider_name": "Fantasma",
+            "provider_slug": "fantasma",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641309063.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641309085.png"
+        },
+        {
+            "provider_name": "Habanero",
+            "provider_slug": "habanero",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641309859.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641309882.png"
+        },
+        {
+            "provider_name": "Kalamba Games",
+            "provider_slug": "kalamba-games",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641310438.svg",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641310462.png"
+        },
+        {
+            "provider_name": "iSoftBet",
+            "provider_slug": "isoftbet",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641311376.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641311402.png"
+        },
+        {
+            "provider_name": "PariPlay",
+            "provider_slug": "pariplay",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641312502.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641312523.png"
+        },
+        {
+            "provider_name": "Playson",
+            "provider_slug": "playson",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641313366.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641313384.png"
+        },
+        {
+            "provider_name": "Playtech",
+            "provider_slug": "playtech",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/01/1641314012.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/01/1641314030.png"
+        },
+        {
+            "provider_name": "Stake Originals",
+            "provider_slug": "stake-originals",
+            "provider_logo": "https://cdn.roshtest.com/images/provider/2022/03/1646854268.png",
+            "provider_cover": "https://cdn.roshtest.com/images/provider/2022/03/1646854307.webp"
+        }
+    ]
+}
