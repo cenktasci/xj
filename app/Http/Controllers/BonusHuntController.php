@@ -49,9 +49,10 @@ class BonusHuntController extends Controller
      * @param  \App\Models\BonusHunt  $bonusHunt
      * @return \Illuminate\Http\Response
      */
-    public function show(BonusHunt $bonusHunt)
+    public function show(BonusHunt $bonusHunt, $id)
     {
-        //
+        $bonus = BonusHunt::FindorFail($id);
+        return $bonus;
     }
 
     /**
@@ -60,9 +61,11 @@ class BonusHuntController extends Controller
      * @param  \App\Models\BonusHunt  $bonusHunt
      * @return \Illuminate\Http\Response
      */
-    public function edit(BonusHunt $bonusHunt)
+    public function edit(BonusHunt $bonusHunt, $id)
     {
-        //
+
+        $bonus = BonusHunt::FindorFail($id);
+        return view('bonushunt.edit', compact('bonus'));
     }
 
     /**
@@ -83,8 +86,13 @@ class BonusHuntController extends Controller
      * @param  \App\Models\BonusHunt  $bonusHunt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BonusHunt $bonusHunt)
+    public function destroy(BonusHunt $bonusHunt, $id)
     {
-        //
+        $bonus = BonusHunt::FindorFail($id);
+
+        if ($bonus) {
+            $bonus->destroy($id);
+        }
+        return redirect()->route('bonushunt.index');
     }
 }

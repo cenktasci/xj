@@ -20,7 +20,6 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Bonus Name</th>
                                         <th scope="col">Start Balance</th>
-                                        <th scope="col">Total Game</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -31,10 +30,9 @@
                                             <th scope="row">{{ $bonushunt->id }}</th>
                                             <td>BONUS HUNT - {{ $bonushunt->bonus_name }}</td>
                                             <td>{{ number_format($bonushunt->start_balance, 2) }} ₺</td>
-                                            <td>{{ $bonushunt->total_game }}</td>
                                             <td>
                                                 <div class="buttons">
-                                                    <a href="{{ route('bonushunt.bonushuntGame.create', $bonushunt->id) }}" class="btn btn-warning">New Game</a>
+                                                    <a href="{{ route('bonushunt.bonushuntGame.index', $bonushunt->id) }}" class="btn btn-warning">New Game</a>
                                                     <a href="{{ route('bonushunt.edit', $bonushunt->id) }}" class="btn btn-primary">Edit Bonus Name</a>
                                                     <form style="display:inline" method="POST" action="{{ route('bonushunt.destroy', $bonushunt->id) }}">
                                                         @csrf

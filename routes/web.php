@@ -4,6 +4,8 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BonusHuntController;
+use App\Http\Controllers\BonusHuntGameController;
+use App\Models\BonusHuntGame;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +28,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/bonushunt/bonushuntgame/{id}', [BonusHuntGameController::class, 'create'])->name('bonushunt.bonushuntGame.create');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -36,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('provider', ProviderController::class);
     Route::resource('game', GameController::class);
     Route::resource('bonushunt', BonusHuntController::class);
+    Route::resource('bonushuntGame', BonusHuntGameController::class);
 });
 
 
