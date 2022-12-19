@@ -29,8 +29,5 @@ class BonusHunt extends Model
         static::creating(function ($game) {
             $game->bonus_name_slug = Str::slug($game->bonus_name);
         });
-        static::updating(function ($game) {
-            $game->bonus_name_slug = Str::slug($game->bonus_name);
-        });
     }
 }

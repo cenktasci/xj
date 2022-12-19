@@ -57,10 +57,7 @@ class ProviderController extends Controller
                     'provider_explanation' => $name,
                 ];
                 $add = Provider::create($saveData);
-                
-                
             }
-            
         }
         echo "1";
     }
@@ -74,15 +71,16 @@ class ProviderController extends Controller
         $game =  json_encode($game);
         $game =  json_decode($game, true);
 
-       
+
 
         for ($i = 0; $i < count($game); $i++) {
-            
+
             $name = $game[$i]["slot_name"];
             $slug = $game[$i]["slot_slug"];
+            $slot_picture = $game[$i]["slot_image"];
             $slot_provider_slug = $game[$i]["slot_provider_slug"];
             $provider_id =  Provider::where('provider_name_slug', $slot_provider_slug)->first();
-            
+
             $slot_volatility = $game[$i]["slot_rating"];
             $slot_rtp = "";
             $check =  Game::where('slot_name', $name)->count() > 0;
@@ -91,18 +89,16 @@ class ProviderController extends Controller
                     'provider_id' => $provider_id->id,
                     'slot_name' => $name,
                     'slot_name_slug' => $slug,
+                    'slot_picture' => $slot_picture,
                     'slot_rtp' => $slot_rtp,
                     'slot_volatility' => $slot_volatility,
                 ];
                 $add = Game::create($saveData);
-                
-                
             }
-            
         }
         echo "1";
     }
-  
+
 
     /**
      * Store a newly created resource in storage.

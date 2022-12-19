@@ -27,8 +27,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/addProvider', 'ProviderController@create2')->name('addProvider.create2');
-Route::get('/addGame', 'ProviderController@create3')->name('addProvider.create3');
 
 
 Route::get('/dashboard', function () {
@@ -36,6 +34,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/addProvider', 'ProviderController@create2')->name('addProvider.create2');
+    Route::get('/addGame', 'ProviderController@create3')->name('addProvider.create3');
 
     Route::get('/bonushunt/bonushuntgame/{id}', [BonusHuntGameController::class, 'create'])->name('bonushunt.bonushuntGame.create');
     Route::get('/bonushunt/bonushuntgame/edit/{id}', [BonusHuntGameController::class, 'edit'])->name('bonushunt.bonushuntGame.edit');
