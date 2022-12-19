@@ -30,6 +30,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/bonushunt/bonushuntgame/{id}', [BonusHuntGameController::class, 'create'])->name('bonushunt.bonushuntGame.create');
+    Route::get('/bonushunt/bonushuntgame/edit/{id}', [BonusHuntGameController::class, 'edit'])->name('bonushunt.bonushuntGame.edit');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

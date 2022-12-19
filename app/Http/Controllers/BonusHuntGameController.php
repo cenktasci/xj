@@ -83,9 +83,14 @@ class BonusHuntGameController extends Controller
      * @param  \App\Models\BonusHuntGame  $bonusHuntGame
      * @return \Illuminate\Http\Response
      */
-    public function edit(BonusHuntGame $bonusHuntGame)
+    public function edit(BonusHuntGame $bonusHuntGame, $id)
     {
-        //
+        $bonushunt =  BonusHunt::FindorFail($id);
+        $games =  Game::all();
+        $bonushuntgame =  BonusHuntGame::where("bonus_hunts_id", $bonushunt->id)->get();
+
+
+        return view('bonushunt game.edit', compact('bonushunt', 'games', 'bonushuntgame'));
     }
 
     /**
@@ -97,7 +102,7 @@ class BonusHuntGameController extends Controller
      */
     public function update(UpdateBonusHuntGameRequest $request, BonusHuntGame $bonusHuntGame)
     {
-        //
+        $request->all();
     }
 
     /**

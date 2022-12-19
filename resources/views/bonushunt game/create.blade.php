@@ -42,6 +42,7 @@
                                                 <button id="remove-btn" class="btn btn-danger" onclick="$(this).parents('.items').remove()">Remove</button>
                                             </div>
                                         </div>
+                                        <hr>
                                     </div>
                                 </div>
                             </div>
@@ -105,6 +106,17 @@
 
                 });
 
+                let gameCount = {{ $bonushunt->total_game }}
+
+
+                for (var i = 1; i < gameCount; i++) {
+                    setTimeout(function() {
+                        $("#addMore").trigger("click");
+                    }, 100);
+
+                }
+
+
                 $("#repeater").createRepeater();
                 $(".single").select2({
                     placeholder: "Select a game",
@@ -120,9 +132,9 @@
                             $('#repeater_form')[0].reset();
                             $("#repeater").createRepeater();
                             $('#success_result').html(data);
-                            /*setInterval(function(){
-                                location.reload();
-                            }, 3000);*/
+                            setInterval(function() {
+                                window.location.href = "{{ url('/bonushunt') }}"
+                            }, 1020);
                         }
                     });
                 });

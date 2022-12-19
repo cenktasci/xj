@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('bonus_name');  // balance
             $table->string('bonus_name_slug');  // balance
             $table->string('start_balance');  // balance
+            $table->string('games_avg')->nullable();  // avarage
             $table->string('total_game');  // balance
             $table->timestamps();
         });
