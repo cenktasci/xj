@@ -130,7 +130,12 @@
                         method: "PUT",
                         data: dataString,
                         success: function(res) {
-                            if (res == 1) {
+
+                            const test = JSON.parse(res);
+
+                            console.log(test);
+
+                            if (test.response == 1) {
 
 
                                 Toastify({

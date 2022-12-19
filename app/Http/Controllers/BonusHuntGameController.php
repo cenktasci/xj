@@ -108,12 +108,18 @@ class BonusHuntGameController extends Controller
         $result = $request->input('result');
         $bet = $request->input('bet');
         $multiplier =  round($result / $bet);
-
+        $totalresult = "";
 
         $update =  BonusHuntGame::where('bonus_hunts_id', $bonushunt_id)->where('id', $game_id)->update(['result' => $result, 'bet' => $bet, 'multiplier' => $multiplier]);
 
         if ($update) {
-            return "1";
+            $a = array(
+                'multiplier' => $multiplier,
+                'totalresult' => $totalresult,
+                'response' => 1,
+            );
+
+            return json_encode($a);
         }
     }
 
