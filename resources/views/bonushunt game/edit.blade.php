@@ -20,38 +20,37 @@
                             <div class="items" data-group="bet">
                                 <div class="item-content">
                                     @foreach ($bonushuntgame as $bonushuntgame)
-                                        <div class="form-group">
-                                            <div class="row">
+                                    <div class="form-group">
+                                        <div class="row">
 
 
-                                                <div class="col-md-3">
-                                                    <label>Game Select</label>
-                                                    <select class="form-control single " data-skip-name="true" data-name="game[]" required>
-                                                        <option value="">Select Game</option>
-                                                        @foreach ($games as $game)
-                                                            <option value="{{ $game->id }}" {{ $game->id == $bonushuntgame->game_id ? 'selected' : '' }}>{{ $game->slot_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>Bet</label>
-                                                    <input type="text" value="{{ $bonushuntgame->bet }}" data-name="bet[]" name="bet" id="bet" class="form-control"
-                                                        required />
-                                                </div>
-                                                <div class="col-md-3" id="res1">
-                                                    <label>Result</label>
-                                                    <input type="text" data-cenk="{{ $bonushuntgame->id }}" data-name="result[]" value="{{ $bonushuntgame->result }}"
-                                                        name="result" id="result" class="form-control result" required />
-                                                </div>
-
+                                            <div class="col-md-3">
+                                                <label>Game Select</label>
+                                                <select disabled class="form-control single " data-skip-name="true" data-name="game[]" required>
+                                                    <option value="">Select Game</option>
+                                                    @foreach ($games as $game)
+                                                    <option value="{{ $game->id }}" {{ $game->id == $bonushuntgame->game_id ? 'selected' : '' }}>{{ $game->slot_name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
+                                            <div class="col-md-3">
+                                                <label>Bet</label>
+                                                <input type="text" data-cenk1="{{ $bonushuntgame->id }}" value="{{ $bonushuntgame->bet }}" data-name="bet[]" name="bet" id="bet" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-3" id="res1">
+                                                <label>Result</label>
+                                                <input type="text" data-cenk="{{ $bonushuntgame->id }}" data-name="result[]" value="{{ $bonushuntgame->result }}" name="result" id="result" class="form-control result" required />
+                                            </div>
+                                            <div class="col-md-3" style="margin-top:24px;" align="left">
+                                                <a data-id="{{ $bonushuntgame->id }}" class="btn btn-primary saveResult">Save</a>
+                                            </div>
+
                                         </div>
-                                        <hr>
-                                    @endforeach
-                                    <div class="col-md-3" style="margin-top:24px;" align="left">
-                                        <a data-id="{{ $bonushuntgame->id }}" class="btn btn-primary repeater_form">Save</a>
                                     </div>
+                                    <hr>
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>
@@ -69,9 +68,13 @@
             </div>
         </div>
         <script src="http://demo.webslesson.info/dynamic-input-fields/repeater.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+       
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <style>
             .select2-container--default .select2-selection--single {
                 height: 38px !important;
@@ -96,70 +99,48 @@
             }
         </style>
         <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                $('body').on('click', '.saveGameResult', function(e) {
-                    e.preventDefault();
-
-
-                    //var game_id = $(this).attr("data-id");
-
-                    //let result = $('data-res="' + game_id + '"]');
-                    // let result = document.querySelectorAll('[data-res="' + game_id + '"]');
-
-                    jQuery('input[name*="result"]').each(function(e) {
-                        console.log($(this).val());
-                    });
-
-
-                    return;
-                });
-
-
-            });
-        </script>
-        <script>
             $(document).ready(function() {
 
-
-
-
-
+                Swal.fire(
+                    'Good job!',
+                    'You clicked the button!',
+                    'success'
+                )
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
 
-                $("#addMore").click(function(e) {
+                $(".saveResult").click(function(e) {
                     e.preventDefault();
 
-                    setTimeout(function() {
-                        $(".single").select2({
-                            placeholder: "Select a game",
-                            allowClear: true,
-                        });
-
-                    }, 100);
-
-                });
-
-                $("#repeater").createRepeater();
-                $(".single").select2({
-                    placeholder: "Select a game",
-                    allowClear: true,
-                });
+                    let bonus_hunts_id = "{{ $bonushunt->id }}";
+                    let game_id = $(this).attr("data-id");
+                    let bet = $('input[data-cenk1="' + game_id + '"]').val();
+                    let result = $('input[data-cenk="' + game_id + '"]').val();
 
 
-                $('#repeater_form').on('submit', function(event) {
+                    let dataString = 'bet=' + bet + '&game_id=' + game_id + '&result=' + result + '&bonus_hunts_id=' + bonus_hunts_id;
 
-                    jQuery('input[name*="result"]').each(function(e) {
-                        let data = +$(this).val();
-                    });
-                    console.log(data);
-                    return;
-
-                    event.preventDefault();
                     $.ajax({
+                        url: "{{ route('bonushuntGame.update', $bonushuntgame->id) }}",
+                        method: "PUT",
+                        data: dataString,
+                        success: function(res) {
+                            if (res == 1) {
+                                toast.info('Your Post as been submited!');
+
+                            }
+                        }
+                    });
+
+                });
+
+
+
+                /*
+                   let save =    $.ajax({
                         url: "{{ route('bonushuntGame.update', $bonushuntgame->id) }}",
                         method: "POST",
                         data: $(this).serialize(),
@@ -172,7 +153,7 @@
                             }, 1020);
                         }
                     });
-                });
+                    */
 
 
                 $(document).on('select2:open', () => {

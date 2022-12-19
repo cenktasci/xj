@@ -5,8 +5,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BonusHuntController;
 use App\Http\Controllers\BonusHuntGameController;
+use App\Http\Controllers\Controller;
 use App\Models\BonusHuntGame;
+use App\Models\Provider;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/addProvider', 'ProviderController@create2')->name('addProvider.create2');
+Route::get('/addGame', 'ProviderController@create3')->name('addProvider.create3');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

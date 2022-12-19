@@ -102,7 +102,19 @@ class BonusHuntGameController extends Controller
      */
     public function update(UpdateBonusHuntGameRequest $request, BonusHuntGame $bonusHuntGame)
     {
-        $request->all();
+        //print_r($request->all());
+        $bonushunt_id = $request->input('bonus_hunts_id');
+        $game_id = $request->input('game_id');
+        $result = $request->input('result');
+        $bet = $request->input('bet');
+
+        $update =  BonusHuntGame::where('bonus_hunts_id',$bonushunt_id)->where('id',$game_id)->update(['result' => $result,'bet' => $bet]);
+
+        if($update){
+            return "1";
+        }
+
+
     }
 
     /**
