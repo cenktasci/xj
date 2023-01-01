@@ -54,4 +54,9 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            hideLoader();
+        });
+    </script>
 </x-app-layout>

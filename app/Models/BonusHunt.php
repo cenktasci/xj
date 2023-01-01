@@ -17,6 +17,20 @@ class BonusHunt extends Model
         return $this->hasMany(Provider::class);
     }
 
+    static public function  getTotal($id)
+    {
+        return BonusHuntGame::where('bonus_hunts_id', $id)->sum('result');
+    }
+
+    static public function  getMultiplier($id)
+    {
+        return BonusHuntGame::where('bonus_hunts_id', $id)->sum('multiplier');
+    }
+    static public function  getTotalGameCount($id)
+    {
+        return BonusHuntGame::where('bonus_hunts_id', $id)->whereNotNull('result')->count();
+    }
+
     public function game()
     {
         return $this->hasMany(Game::class);

@@ -7,18 +7,11 @@ use App\Http\Requests\StoreBonusHuntGameRequest;
 use App\Http\Requests\UpdateBonusHuntGameRequest;
 use App\Models\BonusHunt;
 use App\Models\Game;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class BonusHuntGameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        echo "x";
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,9 +20,13 @@ class BonusHuntGameController extends Controller
      */
     public function create($id)
     {
+
         $bonushunt =  BonusHunt::FindorFail($id);
+        $bonushuntGames = BonusHuntGame::where('bonus_hunts_id', $id)->count();
         $games =  Game::all();
-        return view('bonushunt game.create', compact('bonushunt', 'games'));
+
+
+        return view('bonushuntgame.create', compact('bonushunt', 'games', 'bonushuntGames'));
     }
 
     /**
@@ -45,23 +42,26 @@ class BonusHuntGameController extends Controller
         $game = $request->input('game');
         $bet = $request->input('bet');
 
+
+
         for ($i = 0; $i < count($game); $i++) {
             $dataSave =  [
                 'bonus_hunts_id' => $bonushunt_id,
                 'game_id' => $game[$i],
                 'bet' => $bet[$i]
             ];
+            BonusHuntGame::create($dataSave);
+        }
 
-            $data =  BonusHuntGame::create($dataSave);
-            if ($data) {
-                echo "1";
-            }
-            /*
-            $table->unsignedBigInteger('game_id');
-            $table->string('bet');
-            $table->string('multiplier')->nullable();
-            $table->string('result')->nullable();
-             */
+
+        $check = BonusHuntGame::where('bonus_hunts_id', $bonushunt_id)->count();
+        $addGames =  count($game);
+        $update = BonusHunt::where('id', $bonushunt_id)->first();
+
+        if ($check != $update->total_game) {
+            $totalGames = $update->total_game;
+            $totalGamesNew = $totalGames + $addGames;
+            BonusHunt::where('id', $bonushunt_id)->update(['total_game' => $totalGamesNew]);
         }
     }
 
@@ -85,12 +85,38 @@ class BonusHuntGameController extends Controller
      */
     public function edit(BonusHuntGame $bonusHuntGame, $id)
     {
+
+        $games1 = BonusHunt::find($id)->first();
+        $games = BonusHuntGame::where('bonus_hunts_id', $id)->count();
+
+
+        if ($games == 0) {
+            session()->flash('errors', 'You have got ' . $games1->total_game . ' games! but You have got edit page only ' . $games . ' games please click first new game and add!');
+            return Redirect::back();
+            die;
+        }
+
+
+        $total = BonusHunt::getTotal($id);
+        $multi = BonusHunt::getMultiplier($id);
+
         $bonushunt =  BonusHunt::FindorFail($id);
+        $games1 =  BonusHuntGame::where('bonus_hunts_id', $id)->get();
         $games =  Game::all();
+
+
+        $totalGame = $games1->count();
+        if ($totalGame == 0) {
+            session()->flash('errors', 'No Game added yet!');
+            return Redirect::back();
+        }
+
+
         $bonushuntgame =  BonusHuntGame::where("bonus_hunts_id", $bonushunt->id)->get();
 
 
-        return view('bonushunt game.edit', compact('bonushunt', 'games', 'bonushuntgame'));
+
+        return view('bonushuntgame.edit', compact('bonushunt', 'games', 'games1', 'bonushuntgame', 'total', 'multi'));
     }
 
     /**
@@ -102,24 +128,39 @@ class BonusHuntGameController extends Controller
      */
     public function update(UpdateBonusHuntGameRequest $request, BonusHuntGame $bonusHuntGame)
     {
-        //print_r($request->all());
+
         $bonushunt_id = $request->input('bonus_hunts_id');
         $game_id = $request->input('game_id');
         $result = $request->input('result');
         $bet = $request->input('bet');
         $multiplier =  round($result / $bet);
-        $totalresult = "";
-
         $update =  BonusHuntGame::where('bonus_hunts_id', $bonushunt_id)->where('id', $game_id)->update(['result' => $result, 'bet' => $bet, 'multiplier' => $multiplier]);
+        $multix = BonusHunt::getMultiplier($bonushunt_id);
+
+        $totalresult =  BonusHuntGame::where('bonus_hunts_id', $bonushunt_id)->sum('result');
 
         if ($update) {
             $a = array(
-                'multiplier' => $multiplier,
+                'multiplier' => $multix,
                 'totalresult' => $totalresult,
                 'response' => 1,
             );
 
-            return json_encode($a);
+            $id = $request->input("bonus_hunts_id");
+
+            $total = BonusHunt::getTotal($id);
+            //todo  multi duzelt.
+            $balance  = BonusHunt::where('id', $id)->update(['finish_balance' => $total]);
+
+
+
+            $multix = BonusHunt::getMultiplier($id);
+            $totalGameCount = BonusHunt::getTotalGameCount($id);
+            $multi = round($multix / $totalGameCount);
+            if ($balance) {
+                BonusHunt::where('id', $id)->update(['games_avg' => $multi]);
+                return json_encode($a);
+            }
         }
     }
 

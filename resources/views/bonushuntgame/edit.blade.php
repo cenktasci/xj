@@ -12,10 +12,11 @@
 
                     <form method="post" id="repeater_form">
                         <input type="hidden" data-name="bonushunt_id[]" name="bonushunt_id" value="{{ $bonushunt->id }}" class="form-control" required />
+
                         <div id="repeater">
                             <div class="repeater-heading" align="right">
-                                <a class="btn btn-primary totalwin">Total X - <b>123</b></a>
-                                <a class="btn btn-primary totalwin">Total Win: - <b>123</b></a>
+                                <a class="btn btn-primary totalwin">Total X - <b class="totalx">{{ $multi }}</b> KATI</a>
+                                <a class="btn btn-primary totalwin">Total Win: - <b class="totalsum">{{ $total }}</b>,00 ₺</a>
                             </div>
                             <hr>
                             <div class="clearfix"></div>
@@ -28,7 +29,7 @@
 
                                                 <div class="col-md-3">
                                                     <label>Game Select</label>
-                                                    <select disabled class="form-control single " data-skip-name="true" data-name="game[]" required>
+                                                    <select class="form-control single " data-skip-name="true" data-name="game[]" required>
                                                         <option value="">Select Game</option>
                                                         @foreach ($games as $game)
                                                             <option value="{{ $game->id }}" {{ $game->id == $bonushuntgame->game_id ? 'selected' : '' }}>
@@ -44,11 +45,17 @@
                                                 </div>
                                                 <div class="col-md-3" id="res1">
                                                     <label>Result</label>
-                                                    <input type="text" data-cenk="{{ $bonushuntgame->id }}" data-name="result[]" value="{{ $bonushuntgame->result }}"
-                                                        name="result" id="result" class="form-control result" required />
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₺</span>
+                                                        <input type="number" class="form-control"data-cenk="{{ $bonushuntgame->id }}" data-name="result[]"
+                                                            value="{{ $bonushuntgame->result }}"name="result" id="result" class="form-control result" required>
+                                                        <span class="input-group-text">,00</span>
+                                                    </div>
                                                 </div>
+
                                                 <div class="col-md-3" style="margin-top:24px;" align="left">
                                                     <a data-id="{{ $bonushuntgame->id }}" class="btn btn-primary saveResult">Save</a>
+
                                                 </div>
 
                                             </div>
@@ -108,6 +115,8 @@
         <script>
             $(document).ready(function() {
 
+
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -116,6 +125,9 @@
 
                 $(".saveResult").click(function(e) {
                     e.preventDefault();
+                    $('.saveResult').prop('disabled', true);
+
+
 
                     let bonus_hunts_id = "{{ $bonushunt->id }}";
                     let game_id = $(this).attr("data-id");
@@ -123,20 +135,35 @@
                     let result = $('input[data-cenk="' + game_id + '"]').val();
 
 
-                    let dataString = 'bet=' + bet + '&game_id=' + game_id + '&result=' + result + '&bonus_hunts_id=' + bonus_hunts_id;
 
+                    let dataString = 'bet=' + bet + '&game_id=' + game_id + '&result=' + result + '&bonus_hunts_id=' + bonus_hunts_id;
+                    document.querySelector('.saveResult').disabled = true;
                     $.ajax({
                         url: "{{ route('bonushuntGame.update', $bonushuntgame->id) }}",
                         method: "PUT",
                         data: dataString,
                         success: function(res) {
-
                             const test = JSON.parse(res);
+                            //console.log(test);
 
-                            console.log(test);
+                            //result_avg
+
+                            var a = $("b.totalsum").text();
+                            var b = $("b.totalx").text();
+
+                            if (b != test.multiplier) {
+                                $("b.totalx").text("");
+                                $("b.totalx").text(test.multiplier);
+                            }
+
+                            if (a != test.totalresult) {
+                                $("b.totalsum").text("");
+                                $("b.totalsum").text(test.totalresult);
+                            }
+                            //totalsum
 
                             if (test.response == 1) {
-
+                                $('.saveResult').prop('disabled', false);
 
                                 Toastify({
                                     text: "Result Saved",

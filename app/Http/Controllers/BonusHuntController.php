@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BonusHunt;
 use App\Http\Requests\StoreBonusHuntRequest;
 use App\Http\Requests\UpdateBonusHuntRequest;
+use App\Models\BonusHuntGame;
+use Illuminate\Support\Facades\Redirect;
 
 class BonusHuntController extends Controller
 {
@@ -15,6 +17,7 @@ class BonusHuntController extends Controller
      */
     public function index()
     {
+
         $bonushunt = BonusHunt::all();
         return view('bonushunt.index', compact('bonushunt'));
     }
@@ -26,7 +29,13 @@ class BonusHuntController extends Controller
      */
     public function create()
     {
-        return view('bonushunt.create');
+        $lastid = BonusHunt::latest()->first();
+        if ($lastid) {
+            $id = $lastid->bonus_name + 1;
+        } else {
+            $id = 1;
+        }
+        return view('bonushunt.create', compact('id'));
     }
 
     /**
@@ -37,6 +46,7 @@ class BonusHuntController extends Controller
      */
     public function store(StoreBonusHuntRequest $request)
     {
+
         $bonushunt = BonusHunt::create($request->all());
         if ($bonushunt) {
             return redirect()->route('bonushunt.index');
@@ -65,7 +75,7 @@ class BonusHuntController extends Controller
     {
 
         $bonus = BonusHunt::FindorFail($id);
-        return view('bonushunt.edit', compact('bonus'));
+        return view('bonushunt.edit', compact('bonus', 'id'));
     }
 
     /**
@@ -77,7 +87,27 @@ class BonusHuntController extends Controller
      */
     public function update(UpdateBonusHuntRequest $request, BonusHunt $bonusHunt)
     {
-        //
+        //dd($request->all());
+        $games = BonusHuntGame::where('bonus_hunts_id', $request->input('id'))->count();
+
+        if ($games > $request->input('total_game')) {
+            session()->flash('errors', 'Game Field already added ' . $games . ' games please add more than!');
+            return Redirect::back();
+            die;
+        }
+
+
+
+        $updatedData = array(
+            'start_balance' => $request->input('start_balance'),
+            'total_game' => $request->input('total_game')
+        );
+        $update  = BonusHunt::where('id', $request->input('id'))->update($updatedData);
+
+        if ($update) {
+            session()->flash('errors', 'Successfully updated!');
+            return Redirect::back();
+        }
     }
 
     /**

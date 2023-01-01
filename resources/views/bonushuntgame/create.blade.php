@@ -39,7 +39,7 @@
 
                                             </div>
                                             <div class="col-md-3" style="margin-top:24px;" align="left">
-                                                <button id="remove-btn" class="btn btn-danger" onclick="$(this).parents('.items').remove()">Remove</button>
+                                                <button id="remove-btn" class="btn btn-danger removeCenk" onclick="$(this).parents('.items').remove()">Remove</button>
                                             </div>
                                         </div>
                                         <hr>
@@ -51,7 +51,7 @@
                         <div class="clearfix"></div>
                         <div class="form-group" align="left">
                             <br /><br />
-                            <input type="submit" name="insert" class="btn btn-success" value="insert" />
+                            <input id="insert" type="submit" name="insert" class="btn btn-success" value="insert" />
                         </div>
                     </form>
 
@@ -95,40 +95,70 @@
                     }
                 });
 
+                document.getElementById("insert").disabled = true;
+                hideLoader();
+
+                let input = document.getElementsByClassName('row');
+                let inputlen = input.length;
+
+                if (inputlen == 1) {
+                    document.getElementById("remove-btn").disabled = true;
+                }
+
+
                 $("#addMore").click(function() {
+                    $(".removeCenk").prop("disabled", false);
                     setTimeout(function() {
+                        $(".removeCenk").prop("disabled", false);
+                        $(".removeCenk").first().prop("disabled", true);
+
+
                         $(".single").select2({
                             placeholder: "Select a game",
                             allowClear: true,
                         });
-
-                    }, 100);
+                    }, 15);
 
                 });
 
+                let gameAdeddBefore = {{ $bonushuntGames }}
+
                 let gameCount = {{ $bonushunt->total_game }}
 
+                if (!gameAdeddBefore) {
+                    for (var i = 1; i < gameCount; i++) {
+                        setTimeout(function() {
+                            $("#addMore").trigger("click");
+                        }, 15);
 
-                for (var i = 1; i < gameCount; i++) {
-                    setTimeout(function() {
-                        $("#addMore").trigger("click");
-                    }, 100);
-
+                    }
                 }
-
 
                 $("#repeater").createRepeater();
                 $(".single").select2({
                     placeholder: "Select a game",
                     allowClear: true,
                 });
+                $(document).on('keypress', function(e) {
+                    if (e.which == 13) {
+                        $('#insert').click();
+                        document.getElementById("insert").disabled = true;
+                    }
+                });
+
                 $('#repeater_form').on('submit', function(event) {
                     event.preventDefault();
+
+
+                    //insert
+                    document.getElementById("insert").disabled = true;
+                    showLoader();
                     $.ajax({
                         url: "{{ route('bonushuntGame.store') }}",
                         method: "POST",
                         data: $(this).serialize(),
                         success: function(data) {
+
                             $('#repeater_form')[0].reset();
                             $("#repeater").createRepeater();
                             $('#success_result').html(data);
@@ -142,6 +172,8 @@
 
                 $(document).on('select2:open', () => {
                     document.querySelector('.select2-search__field').focus();
+                    document.getElementById("insert").disabled = false;
+
                 });
 
             });
